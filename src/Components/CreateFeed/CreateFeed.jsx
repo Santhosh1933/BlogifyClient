@@ -1,10 +1,20 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { TextEditor } from "../TextEditor";
 import { BreadCramps } from "../BreadCramps";
+import { ButtonGroup } from "./ButtonGroup";
 
 export const CreateFeed = () => {
   const [title, setTitle] = useState("");
 
+  useEffect(() => {
+    setTitle(sessionStorage.getItem("post-title") || "");
+  }, []);
+
+  useEffect(() => {
+    if (title) {
+      sessionStorage.setItem("post-title", title);
+    }
+  }, [title]);
   return (
     <div className="w-full  ">
       <div className="max-w-6xl p-4 mx-auto ">
@@ -32,6 +42,7 @@ export const CreateFeed = () => {
           />
           <TextEditor />
         </div>
+        <ButtonGroup />
       </div>
     </div>
   );
