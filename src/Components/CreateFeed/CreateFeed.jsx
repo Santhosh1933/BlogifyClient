@@ -2,11 +2,25 @@ import React, { useEffect, useState } from "react";
 import { TextEditor } from "../TextEditor";
 import { BreadCramps } from "../BreadCramps";
 import { ButtonGroup } from "./ButtonGroup";
-
+import { Heading } from "../Home/Heading";
+import { useNavigate } from "react-router-dom";
+import { Decryption } from "../../config/EncryptionDecryption";
 export const CreateFeed = () => {
   const [title, setTitle] = useState("");
 
+  const navigate = useNavigate();
+  const [decryptedValue, setDecryptedValue] = useState(null);
+
   useEffect(() => {
+    const token = localStorage.getItem("token");
+    let decryptedToken = null;
+    if (token) {
+      decryptedToken = JSON.parse(Decryption(token));
+      setDecryptedValue(decryptedToken);
+    }
+    if (!decryptedToken && !decryptedToken?.email) {
+      navigate("/");
+    }
     setTitle(sessionStorage.getItem("post-title") || "");
   }, []);
 
@@ -16,7 +30,9 @@ export const CreateFeed = () => {
     }
   }, [title]);
   return (
-    <div className="w-full  ">
+    <div className="w-full  relative">
+      <Heading />
+
       <div className="max-w-6xl p-4 mx-auto ">
         <p className="py-10">
           <BreadCramps

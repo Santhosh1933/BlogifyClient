@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
+import "./TextEditorStyle.css";
+import { Heading } from "./Home/Heading";
 
 export const TextEditor = () => {
   const [text, setText] = useState("");
@@ -15,9 +17,10 @@ export const TextEditor = () => {
     }
   }, [text]);
 
+
   const toolbarOptions = [
     ["bold", "italic", "underline", "strike"],
-    ["blockquote", "code-block", "link"],
+    ["blockquote", "code-block", "link", "image"],
     [{ header: 1 }],
     [{ list: "ordered" }, { list: "bullet" }, { list: "check" }],
     [{ indent: "-1" }, { indent: "+1" }],
@@ -33,7 +36,7 @@ export const TextEditor = () => {
   };
 
   return (
-    <div className="w-full">
+    <div className="w-full relative">
       <div className="max-w-6xl mx-auto text-center">
         <div className="">
           <ReactQuill

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { signInWithGooglePopup } from "../../config/firebase.utils";
 import { Decryption, Encryption } from "../../config/EncryptionDecryption";
-import useToken from "../Hooks/UseToken";
 import {
   Popover,
   PopoverTrigger,
@@ -18,15 +17,24 @@ import {
 import { IoIosLogOut } from "react-icons/io";
 import { FaRegSave } from "react-icons/fa";
 import { MdAccessTime } from "react-icons/md";
+import { useNavigate } from "react-router-dom";
 
 export const Heading = () => {
-  const [decryptedValue, refresh] = useToken();
+  const [decryptedValue, setDecryptedValue] = useState(null);
+  const navigate = useNavigate();
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      setDecryptedValue(JSON.parse(Decryption(token)));
+    }
+  }, []);
+
   async function signInWithGoogle() {
     const response = await signInWithGooglePopup();
     const { email, displayName, photoURL } = response.user;
     const token = Encryption({ email, displayName, photoURL });
     localStorage.setItem("token", token);
-    refresh();
+    setDecryptedValue(JSON.parse(Decryption(token)));
   }
   return (
     <div className="bg-white z-50">
@@ -39,7 +47,7 @@ export const Heading = () => {
                 <img
                   src={decryptedValue?.photoURL}
                   alt=""
-                  className="w-full h-full object-cover"
+                  className="w-full m-0 h-full object-cover"
                 />
               </div>
             </PopoverTrigger>
@@ -65,7 +73,8 @@ export const Heading = () => {
                     className="flex items-center btn_logout justify-center gap-2"
                     onClick={() => {
                       localStorage.removeItem("token");
-                      refresh();
+                      setDecryptedValue(null);
+                      navigate("/");
                     }}
                   >
                     Logout <IoIosLogOut size={20} />

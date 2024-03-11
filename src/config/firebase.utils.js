@@ -1,12 +1,12 @@
 import { initializeApp } from "firebase/app";
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 const firebaseConfig = {
-  apiKey: "AIzaSyCBkGcATS-dfOEeLi6W5zMwES-vwDE5Sxw",
-  authDomain: "blogify-a4ff9.firebaseapp.com",
-  projectId: "blogify-a4ff9",
-  storageBucket: "blogify-a4ff9.appspot.com",
-  messagingSenderId: "814682774861",
-  appId: "1:814682774861:web:2e2484f75dfe92d71d2b04",
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMINE,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGE,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
 };
 const firebaseApp = initializeApp(firebaseConfig);
 // Initialize Firebase Auth provider

@@ -22,7 +22,7 @@ export const FeedCard = ({
             <img
               src={image}
               alt=""
-              className="w-full h-full object-cover"
+              className="w-full my-0 h-full object-cover"
             />
           </div>
           <p className=" truncate font-semibold text-blue-700">{username}</p>

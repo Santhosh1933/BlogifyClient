@@ -1,0 +1,4 @@
+img{
+    @apply max-h-[75vh] md:max-h-screen md:h-screen h-[75vh] w-full my-8
+
+}
